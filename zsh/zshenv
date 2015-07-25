@@ -1,0 +1,81 @@
+# ZSH Environment (Theme)
+# A lot of this is based on or uses parts found in the ZSH Theme
+# "Bereau" including the get_spaces and right prompt component.
+
+# keep TONS of history
+export HISTSIZE=4096
+
+# Path configuration
+# All of the locations that should be added to the binary path for the users
+HOMEBREW="/usr/local/bin:/usr/local/sbin"
+
+# Export the user binary path before any more execution
+export PATH="${HOMEBREW}:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Enable colors in prompt
+autoload -U colors && colors
+
+setopt nocorrectall;
+setopt correct
+
+# adds the current branch name in green
+parse_git_branch() {
+    (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
+}
+
+git_prompt_info() {
+    local ref=$(parse_git_branch)
+    if [ -n "$ref" ]; then
+        echo "[%{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}]"
+    fi
+}
+
+get_space () {
+    local STR=$1$2
+    local zero='%([BSUbfksu]|([FB]|){*})'
+    local LENGTH=${#${(S%%)STR//$~zero/}}
+    local SPACES=""
+    (( LENGTH = ${COLUMNS} - $LENGTH - 1))
+
+    for i in {0..$LENGTH}; do
+        SPACES="$SPACES "
+    done
+
+    echo $SPACES
+}
+
+# expand functions in the prompt
+setopt prompt_subst
+
+autoload -U promptinit
+promptinit
+
+export CLICOLOR=1
+
+# Configure how the username (left-most) part of the prompt looks
+_USERNAME="[%{$fg_bold[white]%}%n%{$reset_color%}@%m"
+
+# Configure what the path looks like. In most cases this should be
+# the full working path of wher eyou currently are.
+_PATH="%{$fg_bold[blue]%}%~%{$reset_color%}]"
+
+load_right_prompt() {
+    # Do NOT edit this if you don't know what you are doing
+    local PS1_LEFT="$_USERNAME $_PATH"
+    local PS1_RIGHT="[%@] "
+    _SPACES=`get_space $PS1_LEFT $PS1_RIGHT`
+    print; print -rP "$PS1_LEFT$_SPACES$PS1_RIGHT"
+}
+
+# These are the variales that are actually expanded into the prompt.
+# By the time these are both written, the primary prompt showing the
+# user, path, and clock have already been written.
+export PROMPT='> %{$fg[green]%}$%{$reset_color%} '
+export RPROMPT="$(git_prompt_info)"
+
+# A short explanation of how this method actually works.
+# The precmd hook will be called before the shell writes the prompt
+# to this screen, this gives us the opportunity to hook in and write
+# a line to the screen before the prompt executes.
+autoload -U add-zsh-hook
+add-zsh-hook precmd load_right_prompt
