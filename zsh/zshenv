@@ -5,6 +5,9 @@
 # keep TONS of history
 export HISTSIZE=4096
 
+# Export the manpages path on the local system
+export MANPATH="/usr/local/man:$MANPATH"
+
 # Path configuration
 # All of the locations that should be added to the binary path for the users
 HOMEBREW="/usr/local/bin:/usr/local/sbin"
@@ -18,30 +21,16 @@ autoload -U colors && colors
 setopt nocorrectall;
 setopt correct
 
+# Configure what we see in the git prompt read out
+ZSH_THEME_GIT_PROMPT_PREFIX="[git:"
+ZSH_THEME_GIT_PROMPT_SUFFIX="]$reset_color"
+ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]+"
+ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
+
 # adds the current branch name in green
-parse_git_branch() {
-    (git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
-}
-
-git_prompt_info() {
-    local ref=$(parse_git_branch)
-    if [ -n "$ref" ]; then
-        echo "[%{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}]"
-    fi
-}
-
-get_space () {
-    local STR=$1$2
-    local zero='%([BSUbfksu]|([FB]|){*})'
-    local LENGTH=${#${(S%%)STR//$~zero/}}
-    local SPACES=""
-    (( LENGTH = ${COLUMNS} - $LENGTH - 1))
-
-    for i in {0..$LENGTH}; do
-        SPACES="$SPACES "
-    done
-
-    echo $SPACES
+function git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+  echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
 
 # expand functions in the prompt
@@ -53,29 +42,45 @@ promptinit
 export CLICOLOR=1
 
 # Configure how the username (left-most) part of the prompt looks
-_USERNAME="[%{$fg_bold[white]%}%n%{$reset_color%}@%m"
+_USERNAME="[%{$fg[white]%}%n%{$reset_color%}@%{$fg[white]%}%m%{$reset_color%}"
 
 # Configure what the path looks like. In most cases this should be
 # the full working path of wher eyou currently are.
-_PATH="%{$fg_bold[blue]%}%~%{$reset_color%}]"
+_PATH="%{$fg[yellow]%}%~%{$reset_color%}]"
 
-load_right_prompt() {
-    # Do NOT edit this if you don't know what you are doing
-    local PS1_LEFT="$_USERNAME $_PATH"
-    local PS1_RIGHT="[%@] "
-    _SPACES=`get_space $PS1_LEFT $PS1_RIGHT`
-    print; print -rP "$PS1_LEFT$_SPACES$PS1_RIGHT"
+load_prompt() {
+  local PS1_LEFT="$_USERNAME $_PATH"
+  local GIT_PROMPT=$(git_prompt_info)
+  local PS1_RIGHT="[%{$fg[white]%}%@%{$reset_color%}]"
+
+  local gitwidth
+  if [ ${#GIT_PROMPT} != 0 ]; then
+      ((gitwidth=${#GIT_PROMPT} - 12))
+  else
+      gitwidth=0
+  fi
+
+  local STR="$PS1_LEFT${GIT_PROMPT}$PS1_RIGHT"
+  local zero='%([BSUbfksu]|([FB]|){*})'
+  local LENGTH=${#${(S%%)STR//$~zero/}}
+  (( LENGTH = ${COLUMNS} - ${LENGTH} + ${gitwidth} - 1))
+
+  local spacing=""
+  for i in {1..$LENGTH}; do
+    spacing="${spacing} "
+  done
+
+  print; print -rP "$PS1_LEFT$spacing$GIT_PROMPT$PS1_RIGHT"
 }
 
 # These are the variales that are actually expanded into the prompt.
 # By the time these are both written, the primary prompt showing the
 # user, path, and clock have already been written.
-export PROMPT='> %{$fg[green]%}$%{$reset_color%} '
-export RPROMPT="$(git_prompt_info)"
+export PROMPT='%{$fg[green]%}→%{$reset_color%} '
 
 # A short explanation of how this method actually works.
 # The precmd hook will be called before the shell writes the prompt
 # to this screen, this gives us the opportunity to hook in and write
 # a line to the screen before the prompt executes.
 autoload -U add-zsh-hook
-add-zsh-hook precmd load_right_prompt
+add-zsh-hook precmd load_prompt

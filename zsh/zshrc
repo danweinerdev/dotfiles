@@ -1,29 +1,28 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.dotfiles/zsh/modules/oh-my-zsh
-ZSH_THEME="amuse"
+export ZSH_ROOT="$HOME/.dotfiles/zsh"
+export ZSH="$ZSH_ROOT/modules/oh-my-zsh"
 
 # Set to this to use case-sensitive completion
-CASE_SENSITIVE="true"
-DISABLE_AUTO_UPDATE="true"
-HIST_STAMPS="mm/dd/yyyy"
+export CASE_SENSITIVE="true"
+export DISABLE_AUTO_UPDATE="true"
+export HIST_STAMPS="mm/dd/yyyy"
 
-# Load the oh-my-zsh shell framework here and include the source file
-source "$ZSH/oh-my-zsh.sh"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# ZSH Plugins list. These are found in the oh-my-zsh modules directory
 plugins=(git python tmux)
 
 # load our own completion functions
-fpath=(~/.dotfiles/zsh/completion $fpath)
+fpath=($ZSH_ROOT/completion $fpath)
+
+# Load the oh-my-zsh shell framework here and include the source file
+source "$ZSH/oh-my-zsh.sh"
 
 # completion
 autoload -U compinit
 compinit
 
 # Load any command aliases if they exist
-if [ -e "$HOME/.dotfiles/zsh/aliases" ]; then
-    source "$HOME/.dotfiles/zsh/aliases"
+if [ -e "$ZSH_ROOT/aliases" ]; then
+    source "$ZSH_ROOT/aliases"
 fi
 
 # expand functions in the prompt
@@ -47,8 +46,8 @@ export LANG=en_US.UTF-8
 # Load the ZSH environment file if we have it. The default
 # version of this file will attempt to rewrite the PS1
 # variable with a GIT friendly version if possible.
-if [ -e "$HOME/.dotfiles/zsh/zshenv" ]; then
-   source "$HOME/.dotfiles/zsh/zshenv"
+if [ -e "$ZSH_ROOT/zshenv" ]; then
+   source "$ZSH_ROOT/zshenv"
 fi
 
 # Preferred editor for local and remote sessions
