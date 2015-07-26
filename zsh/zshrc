@@ -7,15 +7,15 @@ CASE_SENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 HIST_STAMPS="mm/dd/yyyy"
 
+# Load the oh-my-zsh shell framework here and include the source file
+source "$ZSH/oh-my-zsh.sh"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(git python tmux)
 
-# Load the oh-my-zsh shell framework here and include the source file
-source "$ZSH/oh-my-zsh.sh"
-
 # load our own completion functions
-fpath=(~/.zsh/completion $fpath)
+fpath=(~/.dotfiles/zsh/completion $fpath)
 
 # completion
 autoload -U compinit
@@ -40,6 +40,10 @@ export CLICOLOR=1
 PS1='[%{$fg_bold[green]%}%n@%m %{$fg_bold[blue]%}%~%{$reset_color%}]
 $ '
 
+# Manually set the language environment we're running. In most
+# cases this should default to a unicode font.
+export LANG=en_US.UTF-8
+
 # Load the ZSH environment file if we have it. The default
 # version of this file will attempt to rewrite the PS1
 # variable with a GIT friendly version if possible.
@@ -47,6 +51,10 @@ if [ -e "$HOME/.dotfiles/zsh/zshenv" ]; then
    source "$HOME/.dotfiles/zsh/zshenv"
 fi
 
-# use vim as the visual editor
-export VISUAL=vim
-export EDITOR=$VISUAL
+# Preferred editor for local and remote sessions
+# Use vim as the default editor
+if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+else
+   export EDITOR='mvim'
+fi
