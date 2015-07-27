@@ -1,0 +1,80 @@
+" ================ Formatting ================
+set nocompatible                " explicitly leave vi compatibility mode
+                                " (This must be first because it breaks other settings)
+
+" ================ General settings ================
+
+set encoding=utf-8              " set UTF8 as the standard language
+set number                      " line numbering
+set showcmd                     " incomplete cmds displayed at bottom
+set showmode                    " active mode displayed at bottom
+set history=300                 " num lines of :cmdline history to retain
+set scrolloff=8                 " keep 8 lines of context when side scrolling
+set gcr=a:blinkon0              " no cursor blink
+set autoread                    " reload file on external changes
+set backspace=indent,eol,start  " backspace on in insert mode
+syntax on                       " colorized syntax highlighting
+set title                       " show title in terminal
+set wildmode=list:longest       " tab completion list of available commands
+set hidden                      " enable support for multiple buffers in vim
+                                " Explanation: http://items.sjbach.com/319/configuring-vim-right
+
+" ================ Searching ================
+set ignorecase                  " enable case sensitive smart scrolling
+set smartcase
+set hlsearch                    " hilight search terms as you go
+set incsearch                   " dynamically as they are typed
+set noerrorbells
+set visualbell                  " no beep
+
+" ================ Pathogen load ================
+call pathogen#infect()
+call pathogen#helptags()
+
+" ================ Solarized Support ================
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
+let g:solarized_visibility="low"
+syntax enable                 " syntax highlighting on
+colorscheme solarized         " detects background value (light/dark)
+
+" ================ Backups ================
+set noswapfile
+set nobackup
+set nowb
+
+" Keep undo history across sessions, by storing in file.
+if has('persistent_undo')
+  silent !mkdir ~/.dotfiles/vim/backups > /dev/null 2>&1
+  set undodir=~/.dotfiles/vim/backups
+  set undofile
+endif
+
+" ================ Indentation ================
+set autoindent
+set smartindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+filetype on
+filetype plugin on
+filetype indent on
+
+" Make tabs, trailing whitespace, and non-breaking spaces visible
+exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+set list
+
+set nowrap                   " Don't wrap lines
+set linebreak                " Wrap lines at convenient points
+
+" ================ Load local settings ================
+if filereadable($HOME . "/.vimrc-local")
+	source ~/.vimrc-local
+endif
