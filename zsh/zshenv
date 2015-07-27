@@ -63,7 +63,7 @@ load_prompt() {
   local STR="$PS1_LEFT${GIT_PROMPT}$PS1_RIGHT"
   local zero='%([BSUbfksu]|([FB]|){*})'
   local LENGTH=${#${(S%%)STR//$~zero/}}
-  (( LENGTH = ${COLUMNS} - ${LENGTH} + ${gitwidth} - 1))
+  (( LENGTH = ${COLUMNS} - ${LENGTH} + ${gitwidth} - 3))
 
   local spacing=""
   for i in {1..$LENGTH}; do
