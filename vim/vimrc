@@ -1,6 +1,9 @@
 " ================ Formatting ================
 set nocompatible                " explicitly leave vi compatibility mode
                                 " (This must be first because it breaks other settings)
+" ================ Pathogen load ================
+call pathogen#infect()
+call pathogen#helptags()
 
 " ================ General settings ================
 
@@ -11,13 +14,30 @@ set showmode                    " active mode displayed at bottom
 set history=300                 " num lines of :cmdline history to retain
 set scrolloff=8                 " keep 8 lines of context when side scrolling
 set gcr=a:blinkon0              " no cursor blink
-set autoread                    " reload file on external changes
+" check file change every 4 seconds ('CursorHold') and reload the buffer upon
+" detecting change
+set autoread                                                                                                                                                                                    
+au CursorHold * checktime
 set backspace=indent,eol,start  " backspace on in insert mode
 syntax on                       " colorized syntax highlighting
 set title                       " show title in terminal
-set wildmode=list:longest       " tab completion list of available commands
+set wildmode=list:longest,full  " tab completion list of available commands
+set wildmenu
 set hidden                      " enable support for multiple buffers in vim
                                 " Explanation: http://items.sjbach.com/319/configuring-vim-right
+set laststatus=2
+set splitbelow
+set splitright
+
+nnoremap <C-W> <C-w>v<C-w>l     " Split pane VERTICAL
+nnoremap <C-R> <C-w>s<C-w>l     " Split pane HORIZONTAL
+nnoremap <C-E> <C-w>c<C-w>l     " Close current pane 
+nnoremap <C-J> <C-W><C-K>       " Toggle pane UP
+nnoremap <C-K> <C-W><C-J>       " Toggle pane DOWN
+nnoremap <C-L> <C-W><C-L>       " Toggle pane RIGHT
+nnoremap <C-H> <C-W><C-H>       " Toggle pane LEFT
+nnoremap <C-Tab> :bnext<CR>
+nnoremap <C-N> <C-W><C-N>       " Toggle new empty pane
 
 " ================ Searching ================
 set ignorecase                  " enable case sensitive smart scrolling
@@ -26,10 +46,6 @@ set hlsearch                    " hilight search terms as you go
 set incsearch                   " dynamically as they are typed
 set noerrorbells
 set visualbell                  " no beep
-
-" ================ Pathogen load ================
-call pathogen#infect()
-call pathogen#helptags()
 
 " ================ Solarized Support ================
 if has('gui_running')
@@ -41,6 +57,15 @@ endif
 let g:solarized_visibility="low"
 syntax enable                 " syntax highlighting on
 colorscheme solarized         " detects background value (light/dark)
+
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme="solarized"
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " ================ Backups ================
 set noswapfile
@@ -78,3 +103,8 @@ set linebreak                " Wrap lines at convenient points
 if filereadable($HOME . "/.vimrc-local")
 	source ~/.vimrc-local
 endif
+
+augroup myvimrc
+   au!
+   au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
