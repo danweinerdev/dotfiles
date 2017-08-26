@@ -16,14 +16,13 @@ export HIST_STAMPS="mm/dd/yyyy"
 
 # Manually set the language environment we're running. In most
 # cases this should default to a unicode font.
-export LANG=en_US.UTF-8
+export LANG="en_US.UTF-8"
 
 # Preferred editor for local and remote sessions
 # Use vim as the default editor
 export EDITOR="vim"
 
 # Load all plugins and modules
-source ${ZSH_ROOT}/aliases.sh
 source ${ZSH_ROOT}/modules/oh-my-zsh/oh-my-zsh.sh
 source ${ZSH_ROOT}/modules/oh-my-zsh/lib/history.zsh
 source ${ZSH_ROOT}/modules/oh-my-zsh/lib/key-bindings.zsh
@@ -56,7 +55,8 @@ HOMEBREW="/usr/local/bin:/usr/local/sbin"
 # Export the user binary path before any more execution
 export PATH="${HOMEBREW}:/usr/bin:/bin:/usr/sbin:/sbin"
 
-# Load the prompt changes last. We do this on purpose in case any module 
-# tries to make a change, we can override it.
+# Load the aliases and prompt changes last. We do this on purpose in case any
+# module tries to make a change, we can override it.
+source ${ZSH_ROOT}/aliases.sh
 source ${ZSH_ROOT}/prompt.sh
 
