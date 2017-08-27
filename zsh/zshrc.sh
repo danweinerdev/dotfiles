@@ -27,6 +27,7 @@ source ${ZSH_ROOT}/modules/oh-my-zsh/oh-my-zsh.sh
 source ${ZSH_ROOT}/modules/oh-my-zsh/lib/history.zsh
 source ${ZSH_ROOT}/modules/oh-my-zsh/lib/key-bindings.zsh
 source ${ZSH_ROOT}/modules/oh-my-zsh/lib/completion.zsh
+source ${ZSH_ROOT}/modules/oh-my-zsh/plugins/ssh-agent/ssh-agent.plugin.zsh
 source ${ZSH_ROOT}/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ${ZSH_ROOT}/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
