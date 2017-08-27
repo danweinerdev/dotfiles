@@ -23,13 +23,12 @@ export LANG="en_US.UTF-8"
 export EDITOR="vim"
 
 # Load all plugins and modules
-source ${ZSH_ROOT}/modules/oh-my-zsh/oh-my-zsh.sh
-source ${ZSH_ROOT}/modules/oh-my-zsh/lib/history.zsh
-source ${ZSH_ROOT}/modules/oh-my-zsh/lib/key-bindings.zsh
-source ${ZSH_ROOT}/modules/oh-my-zsh/lib/completion.zsh
-source ${ZSH_ROOT}/modules/oh-my-zsh/plugins/ssh-agent/ssh-agent.plugin.zsh
-source ${ZSH_ROOT}/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ${ZSH_ROOT}/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/history.zsh
+source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/key-bindings.zsh
+source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/completion.zsh
+source ~/.dotfiles/zsh/modules/oh-my-zsh/plugins/ssh-agent/ssh-agent.plugin.zsh
+source ~/.dotfiles/zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.dotfiles/zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Fix for arrow-key searching
 # start typing + [Up-Arrow] - fuzzy find history forward
@@ -58,6 +57,10 @@ export PATH="${HOMEBREW}:/usr/bin:/bin:/usr/sbin:/sbin"
 
 # Load the aliases and prompt changes last. We do this on purpose in case any
 # module tries to make a change, we can override it.
-source ${ZSH_ROOT}/aliases.sh
-source ${ZSH_ROOT}/prompt.sh
+source ~/.dotfiles/zsh/aliases.sh
+source ~/.dotfiles/zsh/prompt.sh
+
+if [ -e "${HOME}/.zshrc.local" ]; then
+  source ${HOME}/.zshrc.local
+fi
 
