@@ -15,7 +15,7 @@ else
 fi
 
 echo "Updating ZSH configuration"
-(cd ${DOTFILE_ROOT} && git pull && git submodule update --init --recursive)
+# (cd ${DOTFILE_ROOT} && git pull && git submodule update --init --recursive)
 
 echo "Starting ZSH configuration"
 source ${ZSH_ROOT}/zshrc.sh
