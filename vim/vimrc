@@ -72,11 +72,7 @@ set noerrorbells
 set visualbell                  " no beep
 
 " ================ Solarized Support ================
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+set background=dark
 
 let g:solarized_visibility="low"
 syntax enable                 " syntax highlighting on
