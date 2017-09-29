@@ -9,7 +9,9 @@ echo "Running ZSH manager"
 
 # Run tmux if exists
 if command -v tmux>/dev/null; then
-  	[ -z $TMUX ] && exec tmux
+    if [ "${SSH_CONNECTION}" != "" ]; then
+        [ -z $TMUX ] && exec tmux
+    fi
 else 
 	  echo "tmux not installed. Please configure dependencies first."
 fi
