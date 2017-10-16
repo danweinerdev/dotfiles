@@ -4,3 +4,8 @@ unset GREP_OPTIONS
 
 alias grep="grep --color=auto"
 alias tmux="tmux -2"
+
+# Directory bounding
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
