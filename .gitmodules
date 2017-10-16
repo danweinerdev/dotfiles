@@ -1,18 +1,12 @@
 [submodule "zsh/modules/oh-my-zsh"]
 	path = zsh/modules/oh-my-zsh
-	url = git@github.com:robbyrussell/oh-my-zsh.git
+	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
-	url = git@github.com:altercation/vim-colors-solarized.git
+	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/editorconfig"]
 	path = vim/bundle/editorconfig
-	url = git@github.com:editorconfig/editorconfig-vim.git
-[submodule "vim/bundle/YouCompleteMe"]
-	path = vim/bundle/YouCompleteMe
-	url = git@github.com:Valloric/YouCompleteMe.git
-[submodule "vim/bundle/YCM-Generator"]
-	path = vim/bundle/YCM-Generator
-	url = https://github.com/rdnetto/YCM-Generator.git
+	url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline.git
@@ -24,7 +18,7 @@
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "zsh/modules/zsh-autosuggestions"]
 	path = zsh/modules/zsh-autosuggestions
-	url = git@github.com:zsh-users/zsh-autosuggestions.git
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "zsh/modules/zsh-syntax-highlighting"]
 	path = zsh/modules/zsh-syntax-highlighting
-	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
