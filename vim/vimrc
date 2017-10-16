@@ -29,9 +29,9 @@ set laststatus=2
 set splitbelow
 set splitright
 
-nnoremap <C-W> <C-w>v<C-w>l     " Split pane VERTICAL
-nnoremap <C-R> <C-w>s<C-w>l     " Split pane HORIZONTAL
-nnoremap <C-E> <C-w>c<C-w>l     " Close current pane 
+nnoremap <C-O> <C-w>v<C-w>l     " Split pane VERTICAL
+nnoremap <C-E> <C-w>s<C-w>l     " Split pane HORIZONTAL
+" nnoremap <C-E> <C-w>c<C-w>l     " Close current pane 
 nnoremap <C-J> <C-W><C-K>       " Toggle pane UP
 nnoremap <C-K> <C-W><C-J>       " Toggle pane DOWN
 nnoremap <C-L> <C-W><C-L>       " Toggle pane RIGHT
