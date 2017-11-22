@@ -78,6 +78,13 @@ let g:solarized_visibility="low"
 syntax enable                 " syntax highlighting on
 colorscheme solarized         " detects background value (light/dark)
 
+" ================ GUI Specific Settings ============
+if has('gui_running')
+  set guioptions-=m  " Remove the menu bar
+  set guioptions-=T  " Remove the toolbar
+  set guioptions-=r  " Remove the right hand scroll bar
+  set guioptions-=L  " Remove the left hand scroll bar
+endif
 " ================ Backups ================
 set noswapfile
 set nobackup
