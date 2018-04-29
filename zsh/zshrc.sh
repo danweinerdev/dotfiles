@@ -26,7 +26,6 @@ export EDITOR="vim"
 source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/history.zsh
 source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/key-bindings.zsh
 source ~/.dotfiles/zsh/modules/oh-my-zsh/lib/completion.zsh
-source ~/.dotfiles/zsh/modules/oh-my-zsh/plugins/ssh-agent/ssh-agent.plugin.zsh
 source ~/.dotfiles/zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.dotfiles/zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -59,6 +58,7 @@ export PATH="${HOMEBREW}:/usr/bin:/bin:/usr/sbin:/sbin"
 # module tries to make a change, we can override it.
 source ~/.dotfiles/zsh/aliases.sh
 source ~/.dotfiles/zsh/prompt.sh
+source ~/.dotfiles/zsh/ssh-agent.sh
 
 if [ -e "${HOME}/.zshrc.local" ]; then
   source ${HOME}/.zshrc.local
