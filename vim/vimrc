@@ -20,6 +20,7 @@ set autoread
 au CursorHold * checktime
 set backspace=indent,eol,start  " backspace on in insert mode
 syntax on                       " colorized syntax highlighting
+syntax enable                   " syntax highlighting on
 set title                       " show title in terminal
 set wildmode=list:longest,full  " tab completion list of available commands
 set wildmenu
@@ -71,12 +72,14 @@ set incsearch                   " dynamically as they are typed
 set noerrorbells
 set visualbell                  " no beep
 
-" ================ Solarized Support ================
-set background=dark
+" ================ Nord Theme ======================
+colorscheme nord
+let g:nord_comment_brightness = 18  " Adjust contrast on comments
 
-let g:solarized_visibility="low"
-syntax enable                 " syntax highlighting on
-colorscheme solarized         " detects background value (light/dark)
+if has('gui_running')
+  let g:nord_italic = 1             " Italics are enabled by default on
+  let g:nord_italic_comments = 1    " the GUI version
+endif
 
 " ================ GUI Specific Settings ============
 if has('gui_running')

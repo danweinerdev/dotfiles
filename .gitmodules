@@ -22,3 +22,6 @@
 [submodule "zsh/modules/zsh-syntax-highlighting"]
 	path = zsh/modules/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "vim/bundle/nord-vim"]
+	path = vim/bundle/nord-vim
+	url = git://github.com/arcticicestudio/nord-vim.git
