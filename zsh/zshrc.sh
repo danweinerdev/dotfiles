@@ -49,7 +49,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 # Path configuration
 # All of the locations that should be added to the binary path for the users
-HOMEBREW="/usr/local/bin:/usr/local/sbin"
+HOMEBREW="${HOME}/.local/bin:${HOME}/bin:/usr/local/bin:/usr/local/sbin"
 
 # Export the user binary path before any more execution
 export PATH="${HOMEBREW}:/usr/bin:/bin:/usr/sbin:/sbin"
