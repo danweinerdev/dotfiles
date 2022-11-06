@@ -21,7 +21,7 @@ au CursorHold * checktime
 set backspace=indent,eol,start  " backspace on in insert mode
 syntax on                       " colorized syntax highlighting
 syntax enable                   " syntax highlighting on
-set title                       " show title in terminal
+set notitle                     " show title in terminal
 set wildmode=list:longest,full  " tab completion list of available commands
 set wildmenu
 set hidden                      " enable support for multiple buffers in vim
@@ -29,40 +29,6 @@ set hidden                      " enable support for multiple buffers in vim
 set laststatus=2
 set splitbelow
 set splitright
-
-nnoremap <C-O> <C-w>v<C-w>l     " Split pane VERTICAL
-nnoremap <C-E> <C-w>s<C-w>l     " Split pane HORIZONTAL
-" nnoremap <C-E> <C-w>c<C-w>l     " Close current pane 
-nnoremap <C-J> <C-W><C-K>       " Toggle pane UP
-nnoremap <C-K> <C-W><C-J>       " Toggle pane DOWN
-nnoremap <C-L> <C-W><C-L>       " Toggle pane RIGHT
-nnoremap <C-H> <C-W><C-H>       " Toggle pane LEFT
-nnoremap <C-N> <C-W><C-N>       " Toggle new empty pane
-
-" ================ CtrlP =================
-" Setup some default ignores
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-  \ }
-
-" Use the nearest .git directory as the cwd
-" This makes a lot of sense if you are working on a project that is in
-" version control. It also supports works with .svn, .hg, .bzr.
-let g:ctrlp_working_path_mode = 'r'
-
-" ================ Buffer Management =============
-" Move to the next buffer
-nmap <C-A> :bnext<CR>
-
-" Move to the previous buffer
-" This is for moving to the last buffer.
-nmap <C-D> :bprevious<CR>
-
-" Close the current buffer and move to the next one.
-" This replicates the feeling of closing a tab, but it really
-" only works on the buffers.
-nmap <C-S> :bp <BAR> bd #<CR>
 
 " ================ Searching ================
 set ignorecase                  " enable case sensitive smart scrolling
